@@ -30,3 +30,15 @@ geerpc：protocol exchange、registry、service discovery、load balance、timeo
 | <------      固定 JSON 编码      ------>  | <-------   编码方式由 CodeType 决定   ------->|
 一次连接可能是：
 | Option | Header1 | Body1 | Header2 | Body2 | ... 
+
+## Day2 
+
+一个函数需要能够被远程调用，需要满足条件：
+
+Method's type is exported
+Method is exported
+Method has two args, both exported types
+the second arg is a pointer
+method has return type error
+
+func (t *T) MethodName(argType T1, replyType *T2) error
