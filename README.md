@@ -77,3 +77,10 @@ geerpc实现：
 ## Day7
 注册中心，支持服务注册、接收心跳
 客户端基于注册中心的服务发现
+
+实现完仍然存在死锁问题，broadcast情况下出现EOF error
+```
+rpc server: read header error:  gob: unknown type id or corrupted data
+broadcast Foo.Sum error: EOF
+broadcast Foo.Sum error: EOF
+```
