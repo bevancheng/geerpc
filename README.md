@@ -70,3 +70,6 @@ geerpc实现：
 - 服务端处理报文，Server.handRequest超时
 
 实现的代码中client.go的dialTimeout和server.go的handleRequest有内存泄露问题
+
+## Day6
+随机选择和Round Robin轮询调度算法实现负载均衡
