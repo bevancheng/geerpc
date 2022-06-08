@@ -101,6 +101,8 @@ func (xc *XClient) Broadcast(ctx context.Context, serviceMethod string, args, re
 				cancel() //
 			}
 			if err == nil && !replyDone {
+				//如果用reply=clonedReply?
+				//相当于将reply换了个地址，这个地址是clonedReply的，之后clonedReply可能会逃逸
 				reflect.ValueOf(reply).Elem().Set(reflect.ValueOf(clonedReply).Elem())
 				replyDone = true
 			}
