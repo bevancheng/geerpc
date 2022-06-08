@@ -42,3 +42,31 @@ the second arg is a pointer
 method has return type error
 
 func (t *T) MethodName(argType T1, replyType *T2) error
+## Day3
+
+![geerpcday3](https://raw.githubusercontent.com/bevancheng/imgrepo/main/202206081259912.jpg)
+
+## Day4
+增加连接超时的处理机制
+增加服务端处理超时的处理机制
+
+超时处理是rpc框架一个比较基本的能力，如果缺少超时处理，服务端和客户端都容易一因为网络或其他其他错误导致挂死，降低服务的可用性。
+
+
+需要客户端处理超时的地方：
+- 与服务端**建立连接**，导致的超时
+- 发送请求到服务端，**写报文**导致的超时
+- 等待服务端处理，等待**处理报文**导致的超时（服务端不响应）
+- 从服务端接收响应，**读报文**导致的超时
+
+需要服务端处理的：
+- 读取客户端请求报文时，**读报文**导致的超时
+- 发送响应报文时，**写报文**导致的超时
+- 调用映射服务的方法时，**处理报文**导致的超时
+
+geerpc实现：
+- 客户端创建连接时
+- 客户端Client.Call()整个过程的超时（发送报文，等待处理，接收报文所有阶段）
+- 服务端处理报文，Server.handRequest超时
+
+实现的代码中client.go的dialTimeout和server.go的handleRequest有内存泄露问题
